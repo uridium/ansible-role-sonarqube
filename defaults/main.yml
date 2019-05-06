@@ -1,6 +1,6 @@
 ---
 sonarqube_version: 7.7
-sonarqube_download_url: 'https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-{{ sonarqube_version }}.zip'
+sonarqube_download_url: 'https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-{{ sonarqube_version }}.zip'
 
 sonarqube_workdir: /opt/sonarqube
 sonarqube_lsb_script: '{{ sonarqube_workdir }}/bin/linux-x86-64/sonar.sh'
