@@ -1,0 +1,16 @@
+[Unit]
+Description=SonarQube service
+After=syslog.target network.target
+
+[Service]
+Type=simple
+User={{ sonarqube_user }}
+Group={{ sonarqube_group }}
+ExecStart={{ sonarqube_lsb_script }} start
+ExecStop={{ sonarqube_lsb_script }} stop
+ExecReload={{ sonarqube_lsb_script }} restart
+PIDFile={{ sonarqube_workdir }}/bin/linux-x86-64/SonarQube.pid
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

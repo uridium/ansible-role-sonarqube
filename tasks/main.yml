@@ -1,0 +1,70 @@
+---
+- name: Create SonarQube group
+  group:
+    name: '{{ sonarqube_group }}'
+
+- name: Create SonarQube user
+  user:
+    name: '{{ sonarqube_user }}'
+    group: '{{ sonarqube_group }}'
+    home: '{{ sonarqube_workdir }}'
+    createhome: no
+    shell: /usr/sbin/nologin
+
+- name: Install unzip
+  package:
+    name: unzip
+    state: present
+
+- name: Unzip SonarQube
+  unarchive:
+    src: '{{ sonarqube_download_url }}'
+    dest: /opt
+    remote_src: yes
+    group: '{{ sonarqube_group }}'
+    owner: '{{ sonarqube_user }}'
+    creates: '{{ sonarqube_workdir }}-{{ sonarqube_version }}'
+
+- name: Create symlink to SonarQube working directory
+  file:
+    src: '{{ sonarqube_workdir }}-{{ sonarqube_version }}'
+    dest: '{{ sonarqube_workdir }}'
+    state: link
+
+- name: Create SonarQube systemd file
+  template:
+    src: sonarqube.service.j2
+    dest: /etc/systemd/system/sonarqube.service
+    mode: 0644
+  when: "ansible_service_mgr == 'systemd'"
+
+- name: Configure SonarQube
+  lineinfile:
+    path: '{{ sonarqube_workdir }}/conf/sonar.properties'
+    regexp: '{{ item.regexp }}'
+    line: '{{ item.line }}'
+  no_log: True
+  notify: Restart SonarQube
+  with_items:
+    - regexp: '^sonar.jdbc.username='
+      line: 'sonar.jdbc.username={{ db_user }}'
+    - regexp: '^sonar.jdbc.password='
+      line: 'sonar.jdbc.password={{ db_pass }}'
+    - regexp: '^sonar.jdbc.url=jdbc:postgresql'
+      line: 'sonar.jdbc.url=jdbc:postgresql://{{ db_host }}/{{ db_name }}'
+    - regexp: '^sonar.web.javaOpts='
+      line: 'sonar.web.javaOpts={{ sonarqube_web_java }}'
+    - regexp: '^sonar.ce.javaOpts='
+      line: 'sonar.ce.javaOpts={{ sonarqube_ce_java }}'
+    - regexp: '^sonar.search.javaOpts='
+      line: 'sonar.search.javaOpts={{ sonarqube_search_java }}'
+
+- name: Restart SonarQube right after configuring
+  meta: flush_handlers
+
+- name: Ensure SonarQube service is enabled and started
+  systemd:
+    name: sonarqube
+    state: started
+    enabled: yes
+  notify: Wait for SonarQube to start
