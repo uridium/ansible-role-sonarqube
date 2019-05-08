@@ -16,5 +16,4 @@ galaxy_info:
     - java
     - development
 
-# dependencies:
-#   - geerlingguy.java
+dependencies: []

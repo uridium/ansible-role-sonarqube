@@ -11,10 +11,13 @@
     createhome: no
     shell: /usr/sbin/nologin
 
-- name: Install unzip
+- name: Install requirements
   package:
-    name: unzip
+    name: '{{ item }}'
     state: present
+  with_items:
+    - openjdk-8-jre-headless
+    - unzip
 
 - name: Unzip SonarQube
   unarchive:
