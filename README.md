@@ -1,7 +1,7 @@
 Role Name
 =========
 
-An Ansible role that installs and configures SonarQube service on Debian systems.
+An Ansible role that installs and configures SonarQube service on Debian/Ubuntu systems.
 It uses PostgreSQL database to store configuration and snapshots.
 
 Requirements
