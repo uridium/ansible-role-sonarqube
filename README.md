@@ -12,7 +12,7 @@ Requirements
 * postgresql server
 
 `openjdk-8-jre-headless` and `unzip` packages are defined in `tasks/main.yml`.
-`PostgreSQL server` needs to be installed beforhand, using other role.
+PostgreSQL server needs to be installed beforhand, using other role.
 
 [SonarQube requirements](https://docs.sonarqube.org/latest/requirements/requirements/)
 
@@ -21,6 +21,7 @@ Role Variables
 
 Available variables are listed down below (see `defaults/main.yml`):
 
+```
     sonarqube_version: 7.7
     sonarqube_download_url: 'https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-{{ sonarqube_version }}.zip'
 
@@ -38,11 +39,13 @@ Available variables are listed down below (see `defaults/main.yml`):
     db_name: YOURdbname
     db_user: YOURdbusername
     db_pass: YOURdbpassword
+```
 
 How to store encrypted passwords:
 
 * using [Ansible Vault](https://docs.ansible.com/ansible/latest/user_guide/vault.html):
 
+```
     db_pass: !vault |
           $ANSIBLE_VAULT;1.1;AES256
           62383534356266343334383935326331386332356338663837373032643562653537373238373830
@@ -50,10 +53,13 @@ How to store encrypted passwords:
           66616137323661306666376666623330626535303436313931653962386361353537323833343863
           3862386566613462390a663362393236313765323036636439653763623933303334333533653234
           3033
+```
 
 * using [passwordstore plugin](https://docs.ansible.com/ansible/latest/plugins/lookup/passwordstore.html):
 
+```
     db_pass: '{{ lookup("pass", "path/to/your/passwordstore/file") }}'
+```
 
 Dependencies
 ------------
@@ -63,11 +69,13 @@ None
 Example Playbook
 ----------------
 
+```
     - hosts: sonarqube.host
       become: True
 
       roles:
         - role: uridium.sonarqube
+```
 
 License
 -------
