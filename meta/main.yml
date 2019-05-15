@@ -2,7 +2,7 @@
 galaxy_info:
   role_name: sonarqube
   author: Dariusz Lisiak
-  description: Install and configure SonarQube service
+  description: Install and configure SonarQube - a service for continuous inspection of code quality and static analysis.
   license: MIT
   min_ansible_version: 2.4
   platforms:
