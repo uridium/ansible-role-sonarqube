@@ -1,4 +1,4 @@
-Role Name
+Ansible role: SonarQube
 =========
 
 An Ansible role that installs and configures SonarQube service on Debian/Ubuntu systems.
