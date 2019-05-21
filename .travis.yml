@@ -1,0 +1,40 @@
+---
+language: python
+services: docker
+dist: xenial
+python:
+  - 2.7
+  - 3.6
+
+env:
+  - ANSIBLE_VERSION=2.4.6.0
+  - ANSIBLE_VERSION=2.5.10
+  - ANSIBLE_VERSION=2.6.10
+  - ANSIBLE_VERSION=2.7.10
+
+install:
+  - pip install -U docker molecule ansible==${ANSIBLE_VERSION}
+
+before_script:
+  - cd ..
+  - mv ansible-role-sonarqube uridium.sonarqube
+  - cd uridium.sonarqube
+
+script:
+  - molecule test
+
+notifications:
+  webhooks:
+    urls:
+      - https://galaxy.ansible.com/api/v1/notifications/
+    on_cancel: never
+    on_error: never
+    on_failure: never
+    on_start: never
+    on_success: always
+  email:
+    on_cancel: always
+    on_error: always
+    on_failure: always
+    on_start: never
+    on_success: always
