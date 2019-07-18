@@ -73,7 +73,9 @@ Example Playbook
 
 ```
     - hosts: sonarqube.host
+      remote_user: admin
       become: True
+      gather_facts: True
 
       roles:
         - role: uridium.sonarqube
