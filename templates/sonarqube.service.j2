@@ -11,6 +11,8 @@ ExecStop={{ sonarqube_lsb_script }} stop
 ExecReload={{ sonarqube_lsb_script }} restart
 PIDFile={{ sonarqube_workdir }}/bin/linux-x86-64/SonarQube.pid
 Restart=always
+LimitNOFILE={{ nofile }}
+LimitNPROC={{ nproc }}
 
 [Install]
 WantedBy=multi-user.target

@@ -34,6 +34,13 @@
     dest: '{{ sonarqube_workdir }}'
     state: link
 
+- name: Configure sysctl
+  sysctl:
+    name: vm.max_map_count
+    value: '{{ max_map_count }}'
+    sysctl_file: /etc/sysctl.d/sonarqube.conf
+    reload: yes
+
 - name: Create SonarQube systemd file
   template:
     src: sonarqube.service.j2

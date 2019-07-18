@@ -12,6 +12,10 @@ sonarqube_web_java: -Xmx2048m -Xms2048m -XX:+HeapDumpOnOutOfMemoryError
 sonarqube_ce_java: -Xmx2048m -Xms2048m -XX:+HeapDumpOnOutOfMemoryError
 sonarqube_search_java: -Xmx2048m -Xms2048m -XX:+HeapDumpOnOutOfMemoryError
 
+max_map_count: 262144
+nofile: 65536
+nproc: 4096
+
 db_host:
 db_name:
 db_user:
