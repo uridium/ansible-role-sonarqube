@@ -39,6 +39,7 @@
     src: sonarqube.service.j2
     dest: /etc/systemd/system/sonarqube.service
     mode: 0644
+  notify: Restart SonarQube
   when: "ansible_service_mgr == 'systemd'"
 
 - name: Configure SonarQube
