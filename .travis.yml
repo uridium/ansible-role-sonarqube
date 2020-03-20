@@ -5,7 +5,6 @@ dist: xenial
 if: tag IS present
 
 python:
-  - 2.7
   - 3.6
 
 env:
