@@ -12,7 +12,7 @@ env:
   - ANSIBLE_VERSION=2.9.6
 
 install:
-  - pip install docker molecule yamllint ansible-lint ansible==${ANSIBLE_VERSION}
+  - pip install docker molecule yamllint ansible-lint flake8 ansible==${ANSIBLE_VERSION}
 
 before_script:
   - cd ..
