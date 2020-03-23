@@ -9,11 +9,11 @@ It uses PostgreSQL database to store configuration and snapshots.
 Requirements
 ------------
 
-* openjdk-8
+* openjdk-11
 * unzip
 * postgresql server
 
-`openjdk-8-jre-headless` and `unzip` packages are defined in `tasks/main.yml`.
+`openjdk-11-jre-headless` and `unzip` packages are defined in `tasks/main.yml`.
 PostgreSQL server needs to be installed beforhand, using other role.
 
 [SonarQube requirements](https://docs.sonarqube.org/latest/requirements/requirements/)
@@ -24,22 +24,22 @@ Role Variables
 Available variables are listed down below (see `defaults/main.yml`):
 
 ```
-    sonarqube_version: 7.8
+    sonarqube_version: '8.2.0.32929'
     sonarqube_download_url: 'https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-{{ sonarqube_version }}.zip'
 
-    sonarqube_workdir: /opt/sonarqube
+    sonarqube_workdir: '/opt/sonarqube'
     sonarqube_lsb_script: '{{ sonarqube_workdir }}/bin/linux-x86-64/sonar.sh'
 
-    sonarqube_user: sonarqube
-    sonarqube_group: sonarqube
+    sonarqube_user: 'sonarqube'
+    sonarqube_group: 'sonarqube'
 
-    sonarqube_web_java: -Xmx2048m -Xms2048m -XX:+HeapDumpOnOutOfMemoryError
-    sonarqube_ce_java: -Xmx2048m -Xms2048m -XX:+HeapDumpOnOutOfMemoryError
-    sonarqube_search_java: -Xmx2048m -Xms2048m -XX:+HeapDumpOnOutOfMemoryError
+    sonarqube_web_java: '-Xmx2048m -Xms2048m -XX:+HeapDumpOnOutOfMemoryError'
+    sonarqube_ce_java: '-Xmx2048m -Xms2048m -XX:+HeapDumpOnOutOfMemoryError'
+    sonarqube_search_java: '-Xmx2048m -Xms2048m -XX:+HeapDumpOnOutOfMemoryError'
 
-    max_map_count: 262144
-    nofile: 65536
-    nproc: 4096
+    max_map_count: '262144'
+    nofile: '65536'
+    nproc: '4096'
 
     db_host: YOURsonarqube.host
     db_name: YOURdbname
