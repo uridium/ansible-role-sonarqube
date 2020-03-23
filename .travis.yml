@@ -5,7 +5,9 @@ dist: xenial
 if: tag IS present
 
 python:
+  - 3.5
   - 3.6
+  - 3.7
 
 env:
   - ANSIBLE_VERSION=2.8.10
