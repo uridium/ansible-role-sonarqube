@@ -3,8 +3,10 @@ dependency:
   name: galaxy
 driver:
   name: docker
-lint:
-  name: yamllint
+provisioner:
+  name: ansible
+verifier:
+  name: ansible
 platforms:
   - name: molecule-debian-stretch
     image: paulfantom/debian-molecule:9
@@ -16,11 +18,8 @@ platforms:
     privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-provisioner:
-  name: ansible
-  lint:
-    name: ansible-lint
-verifier:
-  name: testinfra
-  lint:
-    name: flake8
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
+  flake8
