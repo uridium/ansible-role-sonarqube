@@ -1,6 +1,6 @@
 Ansible role: SonarQube
 =========
-[![Build Status](https://travis-ci.org/uridium/ansible-role-sonarqube.svg?branch=master)](https://travis-ci.org/uridium/ansible-role-sonarqube)
+[![Build Status](https://travis-ci.org/uridium/ansible-role-sonarqube.svg)](https://travis-ci.org/uridium/ansible-role-sonarqube)
 [![Galaxy](https://img.shields.io/badge/galaxy-uridium.sonarqube-blue.svg)](https://galaxy.ansible.com/uridium/sonarqube)
 
 An Ansible role that installs and configures SonarQube service on Debian/Ubuntu systems.
