@@ -1,0 +1,28 @@
+---
+- name: Verify
+  hosts: all
+  vars_files:
+    - '../../defaults/main.yml'
+  tasks:
+  - name: Stat SonarQube jvmoptions file
+    stat:
+      path: '{{ sonarqube_workdir }}/conf/sonar.properties'
+    register: jvmoptions_file
+
+  - name: Assert that the file is in the expected state
+    assert:
+      that:
+        - jvmoptions_file.stat.isreg
+        - jvmoptions_file.stat.pw_name == '{{ sonarqube_user }}'
+        - jvmoptions_file.stat.gr_name == '{{ sonarqube_group }}'
+        - jvmoptions_file.stat.mode == "0644"
+
+  - name: Read SonarQube jvmoptions file
+    command: 'cat {{ sonarqube_workdir }}/conf/sonar.properties'
+    register: jvmoptions_content
+    changed_when: False
+
+  - name: Assert that the file contains the expected string
+    assert:
+      that:
+        - '"-Xmx" in jvmoptions_content.stdout'
