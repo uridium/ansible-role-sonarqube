@@ -42,10 +42,13 @@
 
 - name: Configure sysctl
   sysctl:
-    name: vm.max_map_count
-    value: '{{ max_map_count }}'
+    name: '{{ item.name }}'
+    value: '{{ item.value }}'
     sysctl_file: /etc/sysctl.d/sonarqube.conf
     reload: yes
+  with_items:
+    - { name: 'vm.max_map_count', value: '{{ sonarqube_vm_max_map_count }}' }
+    - { name: 'fs.file-max', value: '{{ sonarqube_fs_file_max }}' }
 
 - name: Create SonarQube systemd file
   template:
