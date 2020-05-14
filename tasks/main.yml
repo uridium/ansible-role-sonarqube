@@ -11,6 +11,12 @@
     createhome: no
     shell: /usr/sbin/nologin
 
+- name: Configure backports repository
+  apt_repository:
+    repo: 'deb http://deb.debian.org/debian {{ ansible_distribution_release }}-backports main'
+    filename: backports
+    update_cache: yes
+
 - name: Install requirements
   package:
     name: '{{ item }}'
