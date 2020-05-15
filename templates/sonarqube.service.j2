@@ -10,9 +10,11 @@ ExecStart={{ sonarqube_lsb_script }} start
 ExecStop={{ sonarqube_lsb_script }} stop
 ExecReload={{ sonarqube_lsb_script }} restart
 PIDFile={{ sonarqube_workdir }}/bin/linux-x86-64/SonarQube.pid
+LimitNOFILE={{ sonarqube_nofile }}
+LimitNPROC={{ sonarqube_nproc }}
+PermissionsStartOnly=true
 Restart=always
-LimitNOFILE={{ nofile }}
-LimitNPROC={{ nproc }}
+SuccessExitStatus=143
 
 [Install]
 WantedBy=multi-user.target
