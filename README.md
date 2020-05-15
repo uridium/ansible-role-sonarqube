@@ -23,7 +23,7 @@ Role Variables
 
 Available variables are listed down below (see `defaults/main.yml`):
 
-```
+```yaml
     sonarqube_version: '8.2.0.32929'
     sonarqube_download_url: 'https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-{{ sonarqube_version }}.zip'
 
@@ -51,7 +51,7 @@ How to store encrypted passwords:
 
 * using [Ansible Vault](https://docs.ansible.com/ansible/latest/user_guide/vault.html):
 
-```
+```yaml
     db_pass: !vault |
           $ANSIBLE_VAULT;1.1;AES256
           62383534356266343334383935326331386332356338663837373032643562653537373238373830
@@ -63,7 +63,7 @@ How to store encrypted passwords:
 
 * using [passwordstore plugin](https://docs.ansible.com/ansible/latest/plugins/lookup/passwordstore.html):
 
-```
+```yaml
     db_pass: '{{ lookup("pass", "path/to/your/passwordstore/file") }}'
 ```
 
@@ -75,7 +75,7 @@ None
 Example Playbook
 ----------------
 
-```
+```yaml
     - hosts: sonarqube.host
       remote_user: admin
       become: True
