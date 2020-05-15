@@ -1,7 +1,7 @@
 Ansible role: SonarQube
 =========
-[![Build Status](https://travis-ci.org/uridium/ansible-role-sonarqube.svg)](https://travis-ci.org/uridium/ansible-role-sonarqube)
-[![Galaxy](https://img.shields.io/badge/galaxy-uridium.sonarqube-blue.svg)](https://galaxy.ansible.com/uridium/sonarqube)
+[![GitHub Actions](https://github.com/uridium/ansible-role-sonarqube/workflows/test-and-release/badge.svg)](https://github.com/uridium/ansible-role-sonarqube/actions)
+[![Ansible Galaxy](https://img.shields.io/badge/galaxy-uridium.sonarqube-blue.svg)](https://galaxy.ansible.com/uridium/sonarqube)
 
 An Ansible role that installs and configures SonarQube service on Debian/Ubuntu systems.
 It uses PostgreSQL database to store configuration and snapshots.
