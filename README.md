@@ -83,6 +83,7 @@ Example Playbook
 
       roles:
         - role: uridium.sonarqube
+          sonarqube_basedir: '/data'
 ```
 
 License

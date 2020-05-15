@@ -1,4 +1,12 @@
 ---
+- name: Create SonarQube base directory
+  file:
+    path: '{{ sonarqube_basedir }}'
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
 - name: Create SonarQube group
   group:
     name: '{{ sonarqube_group }}'
@@ -28,7 +36,7 @@
 - name: Unzip SonarQube
   unarchive:
     src: '{{ sonarqube_download_url }}'
-    dest: /opt
+    dest: '{{ sonarqube_basedir }}'
     remote_src: yes
     group: '{{ sonarqube_group }}'
     owner: '{{ sonarqube_user }}'
@@ -54,7 +62,7 @@
   template:
     src: sonarqube.service.j2
     dest: /etc/systemd/system/sonarqube.service
-    mode: 0644
+    mode: '0644'
   notify: Restart SonarQube
   when: "ansible_service_mgr == 'systemd'"
 
