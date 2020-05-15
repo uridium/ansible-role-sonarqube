@@ -38,8 +38,8 @@
     src: '{{ sonarqube_download_url }}'
     dest: '{{ sonarqube_basedir }}'
     remote_src: yes
-    group: '{{ sonarqube_group }}'
     owner: '{{ sonarqube_user }}'
+    group: '{{ sonarqube_group }}'
     creates: '{{ sonarqube_workdir }}-{{ sonarqube_version }}'
 
 - name: Create symlink to SonarQube working directory
@@ -57,14 +57,6 @@
   with_items:
     - { name: 'vm.max_map_count', value: '{{ sonarqube_vm_max_map_count }}' }
     - { name: 'fs.file-max', value: '{{ sonarqube_fs_file_max }}' }
-
-- name: Create SonarQube systemd file
-  template:
-    src: sonarqube.service.j2
-    dest: /etc/systemd/system/sonarqube.service
-    mode: '0644'
-  notify: Restart SonarQube
-  when: "ansible_service_mgr == 'systemd'"
 
 - name: Configure SonarQube
   lineinfile:
@@ -86,6 +78,14 @@
       line: 'sonar.ce.javaOpts={{ sonarqube_ce_java }}'
     - regexp: '^sonar.search.javaOpts='
       line: 'sonar.search.javaOpts={{ sonarqube_search_java }}'
+
+- name: Create SonarQube systemd file
+  template:
+    src: sonarqube.service.j2
+    dest: /etc/systemd/system/sonarqube.service
+    mode: '0644'
+  when: 'ansible_service_mgr == "systemd"'
+  notify: Restart SonarQube
 
 - name: Restart SonarQube right after configuring
   meta: flush_handlers
