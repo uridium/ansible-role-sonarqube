@@ -24,10 +24,12 @@ Role Variables
 Available variables are listed down below (see `defaults/main.yml`):
 
 ```yaml
-sonarqube_version: '8.2.0.32929'
+---
+sonarqube_version: '8.3.1.34397'
 sonarqube_download_url: 'https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-{{ sonarqube_version }}.zip'
 
-sonarqube_workdir: '/opt/sonarqube'
+sonarqube_basedir: '/opt'
+sonarqube_workdir: '{{ sonarqube_basedir }}/sonarqube'
 sonarqube_lsb_script: '{{ sonarqube_workdir }}/bin/linux-x86-64/sonar.sh'
 
 sonarqube_user: 'sonarqube'
@@ -37,11 +39,12 @@ sonarqube_web_java: '-Xmx2048m -Xms2048m -XX:+HeapDumpOnOutOfMemoryError'
 sonarqube_ce_java: '-Xmx2048m -Xms2048m -XX:+HeapDumpOnOutOfMemoryError'
 sonarqube_search_java: '-Xmx2048m -Xms2048m -XX:+HeapDumpOnOutOfMemoryError'
 
-max_map_count: '262144'
-nofile: '65536'
-nproc: '4096'
+sonarqube_vm_max_map_count: '262144'
+sonarqube_fs_file_max: '65536'
+sonarqube_nofile: '65536'
+sonarqube_nproc: '4096'
 
-db_host: YOURsonarqube.host
+db_host: YOURdbhost
 db_name: YOURdbname
 db_user: YOURdbusername
 db_pass: YOURdbpassword
@@ -76,7 +79,8 @@ Example Playbook
 ----------------
 
 ```yaml
-- hosts: sonarqube.host
+---
+- hosts: sonarqube.domain.io
   remote_user: admin
   become: True
   gather_facts: True
@@ -84,7 +88,7 @@ Example Playbook
   roles:
     - role: uridium.sonarqube
       sonarqube_basedir: '/data'
-      db_host: 'sonarqube_postgres.domain.io'
+      db_host: 'sonarqube_db.domain.io'
       db_name: 'sonarqube'
       db_user: 'sonarqube'
       db_pass: '{{ lookup("pass", "domain.io/db/sonarqube") }}'
