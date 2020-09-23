@@ -4,7 +4,7 @@ galaxy_info:
   author: Dariusz Lisiak
   description: Install and configure SonarQube - a service for continuous inspection of code quality and static analysis.
   license: MIT
-  min_ansible_version: 2.8
+  min_ansible_version: 2.9
   platforms:
     - name: Debian
       versions:
