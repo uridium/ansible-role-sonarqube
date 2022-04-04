@@ -3,7 +3,7 @@ Ansible role: SonarQube
 [![GitHub Actions](https://github.com/uridium/ansible-role-sonarqube/workflows/test-and-release/badge.svg)](https://github.com/uridium/ansible-role-sonarqube/actions)
 [![Ansible Galaxy](https://img.shields.io/badge/galaxy-uridium.sonarqube-blue.svg)](https://galaxy.ansible.com/uridium/sonarqube)
 
-An Ansible role that installs and configures SonarQube service on Debian systems.
+An Ansible role that installs and configures SonarQube service on Debian stable.
 It uses PostgreSQL database to store configuration and snapshots.
 
 Requirements
@@ -25,7 +25,7 @@ Available variables are listed down below (see `defaults/main.yml`):
 
 ```yaml
 ---
-sonarqube_version: '8.3.1.34397'
+sonarqube_version: '9.3.0.51899'
 sonarqube_download_url: 'https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-{{ sonarqube_version }}.zip'
 
 sonarqube_basedir: '/opt'
@@ -81,12 +81,13 @@ Example Playbook
 ```yaml
 ---
 - hosts: sonarqube.domain.io
-  remote_user: admin
+  remote_user: boss
   become: True
   gather_facts: True
 
   roles:
     - role: uridium.sonarqube
+      sonarqube_version: '9.3.0.00001'
       sonarqube_basedir: '/data'
       db_host: 'sonarqube_db.domain.io'
       db_name: 'sonarqube'
