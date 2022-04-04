@@ -25,7 +25,7 @@ Available variables are listed down below (see `defaults/main.yml`):
 
 ```yaml
 ---
-sonarqube_version: '9.3.0.51899'
+sonarqube_version: '8.4.2.36762'
 sonarqube_download_url: 'https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-{{ sonarqube_version }}.zip'
 
 sonarqube_basedir: '/opt'
@@ -87,7 +87,7 @@ Example Playbook
 
   roles:
     - role: uridium.sonarqube
-      sonarqube_version: '9.3.0.00001'
+      sonarqube_version: '8.9.8.54436'
       sonarqube_basedir: '/data'
       db_host: 'sonarqube_db.domain.io'
       db_name: 'sonarqube'

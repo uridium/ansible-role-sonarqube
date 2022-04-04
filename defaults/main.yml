@@ -1,5 +1,5 @@
 ---
-sonarqube_version: '9.3.0.51899'
+sonarqube_version: '8.4.2.36762'
 sonarqube_download_url: 'https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-{{ sonarqube_version }}.zip'
 
 sonarqube_basedir: '/opt'
