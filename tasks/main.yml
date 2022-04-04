@@ -19,16 +19,11 @@
     createhome: no
     shell: /usr/sbin/nologin
 
-- name: Configure backports repository
-  apt_repository:
-    repo: 'deb http://deb.debian.org/debian {{ ansible_distribution_release }}-backports main'
-    filename: backports
-    update_cache: yes
-
 - name: Install requirements
-  package:
+  apt:
     name: '{{ item }}'
     state: present
+    update_cache: yes
   with_items:
     - openjdk-11-jre-headless
     - unzip
@@ -58,13 +53,19 @@
     - { name: 'vm.max_map_count', value: '{{ sonarqube_vm_max_map_count }}' }
     - { name: 'fs.file-max', value: '{{ sonarqube_fs_file_max }}' }
 
+- name: Configure systemd
+  template:
+    src: sonarqube.service.j2
+    dest: /etc/systemd/system/sonarqube.service
+    mode: '0644'
+  when: 'ansible_service_mgr == "systemd"'
+
 - name: Configure SonarQube
   lineinfile:
     path: '{{ sonarqube_workdir }}/conf/sonar.properties'
     regexp: '{{ item.regexp }}'
     line: '{{ item.line }}'
   no_log: True
-  notify: Restart SonarQube
   with_items:
     - regexp: '^sonar.jdbc.username='
       line: 'sonar.jdbc.username={{ db_user }}'
@@ -78,21 +79,17 @@
       line: 'sonar.ce.javaOpts={{ sonarqube_ce_java }}'
     - regexp: '^sonar.search.javaOpts='
       line: 'sonar.search.javaOpts={{ sonarqube_search_java }}'
+  register: properties_conf
 
-- name: Create SonarQube systemd file
-  template:
-    src: sonarqube.service.j2
-    dest: /etc/systemd/system/sonarqube.service
-    mode: '0644'
-  when: 'ansible_service_mgr == "systemd"'
-  notify: Restart SonarQube
-
-- name: Restart SonarQube right after configuring
-  meta: flush_handlers
-
-- name: Ensure SonarQube service is enabled and started
+- name: Restart SonarQube
   systemd:
     name: sonarqube
-    state: started
+    state: restarted
     enabled: yes
-  notify: Wait for SonarQube to start
+  when: properties_conf.changed
+
+- name: Wait for SonarQube to start
+  wait_for:
+    port: 9000
+    delay: 5
+    timeout: 300

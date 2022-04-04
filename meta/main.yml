@@ -2,14 +2,14 @@
 galaxy_info:
   role_name: sonarqube
   author: Dariusz Lisiak
+  namespace: uridium
   description: Install and configure SonarQube - a service for continuous inspection of code quality and static analysis.
   license: MIT
-  min_ansible_version: 2.9
+  min_ansible_version: 5.2.0
   platforms:
     - name: Debian
       versions:
-        - buster
-        - stretch
+        - bullseye
   galaxy_tags:
     - sonarqube
     - sonar

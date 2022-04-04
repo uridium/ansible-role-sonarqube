@@ -12,14 +12,6 @@ platforms:
     environment:
       container: docker
     privileged: True
-  - name: debian-systemd-stretch
-    image: uridium/debian-systemd:stretch
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    command: /sbin/init
-    environment:
-      container: docker
-    privileged: True
 provisioner:
   name: ansible
   config_options:
