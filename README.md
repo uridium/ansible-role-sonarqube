@@ -50,6 +50,8 @@ db_user: YOURdbusername
 db_pass: YOURdbpassword
 ```
 
+[SonarQube versions](https://binaries.sonarsource.com/?prefix=Distribution/sonarqube/)
+
 How to store encrypted passwords:
 
 * using [Ansible Vault](https://docs.ansible.com/ansible/latest/user_guide/vault.html):
@@ -70,11 +72,6 @@ db_pass: !vault |
 db_pass: '{{ lookup("pass", "path/to/your/passwordstore/file") }}'
 ```
 
-Dependencies
-------------
-
-None
-
 Example Playbook
 ----------------
 
@@ -94,8 +91,3 @@ Example Playbook
       db_user: 'sonarqube'
       db_pass: '{{ lookup("pass", "domain.io/db/sonarqube") }}'
 ```
-
-License
--------
-
-MIT
